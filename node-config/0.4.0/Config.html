@@ -2,13 +2,13 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>node-config  Config  </title>
+	<title>Config  Config  </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1308899161.63" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1308899161.63" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1309964248.03" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1309964248.03" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1308899161.63"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1308899161.63"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1309964248.03"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1309964248.03"></script>
 </head>
 
 <body id="node-monitor">
@@ -17,7 +17,7 @@
 	<div id="hd">
         <h1><a href="https://github.com/lorenwest/node-config" title="Node.js Configuration">Node.js Configuration</a></h1>
         <a href="./index.html" title="Node.js Configuration">Node.js Configuration</a>
-            &gt; <a href="./module_node-config.html" title="node-config">node-config</a>
+            &gt; <a href="./module_config.html" title="Config">Config</a>
                  &gt; Config 
                 
         <form onsubmit="return false">
@@ -37,7 +37,7 @@
                 <fieldset>
                     <legend>Filters</legend>
                 <span class="classopts" style="display:none;"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
-                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span id="showProtected" class="classopts" style="display:none'"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
                 <span class="classopts" style="display:none;"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
                 </fieldset>
             </form>
@@ -60,11 +60,16 @@
                     <div class="summary description" property="yui:description">
                         <p>Runtime Application Configurations</p>
 <p>
-The config module is a singleton class representing all runtime
-configurations for this application instance.
+The config module exports a singleton object representing all runtime
+configurations for this application deployment.
 </p>
 <p>
-The require('config') constructor returns the configuration object.
+Application configurations are stored in files within the config directory
+of your application.  The default configuration file is loaded, followed
+by files specific to the deployment type (development, testing, staging,
+production, etc.).
+</p>
+<p>
 For example, with the following config/default.yaml file:
 </p>
 <pre>
@@ -252,6 +257,15 @@ with the returned object without affecting the input object.
                                         
                                         <div class="description" property="yui:description">
                                             Returns an object containing all elements that differ between two objects.
+<p>
+This method was designed to be used to create the runtime.json file
+contents, but can be used to get the diffs between any two Javascript objects.
+</p>
+<p>
+It works best when object2 originated by deep copying object1, then 
+changes were made to object2, and you want an object that would give you
+the changes made to object1 which resulted in object2.
+</p>
                                         </div>
 
                                         <div class="description">
@@ -525,16 +539,15 @@ require()'d with module.exports being the config object.
 </p>
 <p>
 (hostname) is the $HOST environment variable if set, otherwise the
-$HOSTNAME environment variable if set, otherwise the hostname found from
-require('os').hostname()
+hostname found from require('os').hostname()
 </p>
 <p>
 (deployment) is the deployment type, found in the $NODE_ENV environment
 variable.  Defaults to 'development'.
 </p>
 <p>
-The runtime.json file contains configuration changes made at runtime via
-the CONFIG.set('element',value) method.
+The runtime.json file contains configuration changes made at runtime either
+manually, or by the application setting a configuration value.
 </p>
                                         </div>
 
@@ -616,30 +629,43 @@ If the file can't be parsed, an exception will be thrown.
                                     </div>
                                     <hr />
                                     </div>
-                                    <div class="protected" rel="yui:method" resource="#method__persistConfigChanges">
+                                    <div class="protected" rel="yui:method" resource="#method__persistConfigsOnChange">
                                     <h4>
-                                        <a name="method__persistConfigChanges">_persistConfigChanges</a></h4>
+                                        <a name="method__persistConfigsOnChange">_persistConfigsOnChange</a></h4>
                                     <div class="detail" >
                                         <code>
                                          protected 
                                         
                                         
                                         void
-                                            <strong property="yui:name">_persistConfigChanges</strong>
+                                            <strong property="yui:name">_persistConfigsOnChange</strong>
                                            (
+                                                
+                                                        
+                                                         object
+                                                    
+                                                
                                             )
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Persist configuration file changes to runtime.json
-<p>
-This method watches configuration variables for changes, and builds a new
-runtime.json file containing all changes to the original configuration.
+                                            <p>
+Watch the specified object for a change in properties, and persist changes
+to runtime.json when a change is detected.
 </p>
                                         </div>
 
                                         <div class="description">
 
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">object</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  - The config object to watch</span>
+                                                        </dd>
+                                                </dl>
 
                                                 <dl>
                                                     <dt>Returns:
@@ -679,7 +705,8 @@ This paradigm allows multiple application servers to internally notify
 listeners whenever the configuration changes.
 </p>
 <p>
-This method attaches the file watcher onto the runtime.json file.
+This method attaches the file watcher onto the runtime.json file, reloading
+the file on change and merging the new values into the CONFIG object.
 </p>
                                         </div>
 
@@ -692,6 +719,66 @@ This method attaches the file watcher onto the runtime.json file.
                                                         void
                                                     </code></dt>
                                                     <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_constructor">
+                                    <h4>
+                                        <a name="method_constructor">constructor</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        object
+                                            <strong property="yui:name">constructor</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            <p>Get the configuration object.</p>
+<p>
+The configuration object is a shared singleton object within the applicaiton,
+attained by calling require('config').
+</p>
+<p>
+Usually you'll specify a CONFIG variable at the top of your .js file
+for file/module scope. If you want the root of the object, you can do this:
+</p>
+<pre>
+var CONFIG = require('config');
+</pre>
+<p>
+Sometimes you only care about a specific sub-object within the CONFIG
+object.  In that case you could do this at the top of your file:
+</p>
+<pre>
+var CONFIG = require('config').customer;
+or
+var CUSTOMER_CONFIG = require('config').customer;
+</pre>
+<script type="text/javascript">
+document.getElementById("showProtected").style.display = "block";
+</script>
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        object
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">CONFIG  - The top level configuration object</dd>
                                                 </dl>
 
 
@@ -726,10 +813,11 @@ This method attaches the file watcher onto the runtime.json file.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            <p>Make a configuration property immutable (assuring it cannot be changed).</p>
+                                            <p>Make a configuration property immutable (assuring it cannot be changed
+from the current value).</p>
 <p>
-This method was built for configuration properties that shouldn't change,
-but it can be applied to any javascript object property.
+This method was built for disabling runtime changes to configuration values,
+but it can be applied to any javascript object.
 </p>
 <p>
 This operation cannot be un-done.
@@ -760,6 +848,89 @@ This operation cannot be un-done.
                                                         object
                                                     </code></dt>
                                                     <dd property="yui:returnInfo">object  - The original object is returned - for chaining.</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_setModuleDefaults">
+                                    <h4>
+                                        <a name="method_setModuleDefaults">setModuleDefaults</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        object
+                                            <strong property="yui:name">setModuleDefaults</strong>
+                                           (
+                                                
+                                                        
+                                                         moduleName
+                                                    
+                                                
+                                                        , 
+                                                         defaultProperties
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            <p>
+Set default configurations for a node.js module.
+</p>
+<p>
+This allows module developers to attach their configurations onto the 
+default configuration object so they can be configured by the consumers
+of the module.
+</p>
+<p>Using the function within your module:</p>
+<pre>
+var CONFIG = require("config");
+CONFIG.setModuleDefaults("MyModule", {
+&nbsp;&nbsp;templateName: "t-50",
+&nbsp;&nbsp;colorScheme: "green"
+});
+<br>
+// Template name may be overridden by application config files
+console.log("Template: " + CONFIG.MyModule.templateName);
+</pre>
+<p>
+The above example results in a "MyModule" element of the configuration
+object, containing an object with the specified default values.
+</p>
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">moduleName</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  - Name of your module.</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">defaultProperties</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  - The default module configuration.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        object
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">moduleConfig  - The module level configuration object.</dd>
                                                 </dl>
 
 
@@ -804,17 +975,13 @@ This operation cannot be un-done.
                                         <div class="description" property="yui:description">
                                             <p>Monitor a configuration value for runtime changes.</p>
 <p>
-Configuration values can be changed in a running application by the 
-application, or by a manual change to the runtime.json
-file within the configuration directory. The watch method lets you specify 
-a function to run if a configuration value changes.  
+Configuration values can be changed at runtime by the application or by a 
+manual change to the config/runtime.json  file. 
+This method lets you specify a function to run when a configuration 
+value changes.  
 </p>
 <p>
-If you want to prevent changes to configuration values, it's better to use 
-the makePropertyImmutable method.
-</p>
-<p>
-This method was built for monitoring changes to configuration values,
+This was built for monitoring changes to configuration values,
 but it can be used for watching changes to any javascript object.
 </p>
                                         </div>
@@ -827,7 +994,7 @@ but it can be used for watching changes to any javascript object.
                                                         <code><span property="yui:name">object</span>
                                                         &lt;<span property="yui:type">object</span>&gt;
                                                         </code>
-                                                        <span property="yui:description">  - The object to watch.  Can be any javascript object.</span>
+                                                        <span property="yui:description">  - The object to watch.</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">property</span>
@@ -841,7 +1008,7 @@ but it can be used for watching changes to any javascript object.
                                                         </code>
                                                         <span property="yui:description">  - Handler called when a property change is detected.
 The handler is run along with other handlers registered for notification.
-If the handler changes the value of the property, that change is applied after all handlers have finished processing the current change.
+If your handler changes the value of the property, that change is applied after all handlers have finished processing the current change.
 Then all handlers (including this one) will be called again with the newly changed value.</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
@@ -890,8 +1057,8 @@ Then all handlers (including this one) will be called again with the newly chang
                     <div id="moduleList" class="module">
                         <h4>Modules</h4>
                         <ul class="content">
-                                <li class="selected"><a href="module_node-config.html" title="node-config">node-config</a></li>
-                                <li class=""><a href="module_test.html" title="test">test</a></li>
+                                <li class="selected"><a href="module_Config.html" title="Config">Config</a></li>
+                                <li class=""><a href="module_Test.html" title="Test">Test</a></li>
                         </ul>
                     </div>
 
@@ -921,9 +1088,11 @@ Then all handlers (including this one) will be called again with the newly chang
                                 <li class="protected"><a href="#method__isObject" title="_isObject">_isObject</a></li>
                                 <li class="protected"><a href="#method__loadFileConfigs" title="_loadFileConfigs">_loadFileConfigs</a></li>
                                 <li class="protected"><a href="#method__parseFile" title="_parseFile">_parseFile</a></li>
-                                <li class="protected"><a href="#method__persistConfigChanges" title="_persistConfigChanges">_persistConfigChanges</a></li>
+                                <li class="protected"><a href="#method__persistConfigsOnChange" title="_persistConfigsOnChange">_persistConfigsOnChange</a></li>
                                 <li class="protected"><a href="#method__watchForConfigFileChanges" title="_watchForConfigFileChanges">_watchForConfigFileChanges</a></li>
+                                <li class=""><a href="#method_constructor" title="constructor">constructor</a></li>
                                 <li class=""><a href="#method_makeImmutable" title="makeImmutable">makeImmutable</a></li>
+                                <li class=""><a href="#method_setModuleDefaults" title="setModuleDefaults">setModuleDefaults</a></li>
                                 <li class=""><a href="#method_watch" title="watch">watch</a></li>
                         </ul>
                     </div>
@@ -935,12 +1104,12 @@ Then all handlers (including this one) will be called again with the newly chang
 	</div>
 	<div id="ft">
         <hr />
-Released on <a href="https://github.com/lorenwest/node-monitor">github</a> under the <a href="https://github.com/lorenwest/node-monitor/blob/master/LICENSE">Apache License 2.0</a>
+Released on <a href="https://github.com/lorenwest/node-config">github</a> under the <a href="https://github.com/lorenwest/node-config/blob/master/LICENSE">Apache License 2.0</a>
 <span class="subtitle">version 0.4.0</span>
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Config.html#method__attachProtoDeep", "access": "protected", "host": "Config", "type": "method", "name": "_attachProtoDeep"}, {"url": "Config.html#method__cloneDeep", "access": "protected", "host": "Config", "type": "method", "name": "_cloneDeep"}, {"url": "Config.html#method__diffDeep", "access": "protected", "host": "Config", "type": "method", "name": "_diffDeep"}, {"url": "Config.html#method__equalsDeep", "access": "protected", "host": "Config", "type": "method", "name": "_equalsDeep"}, {"url": "Config.html#method__extendDeep", "access": "protected", "host": "Config", "type": "method", "name": "_extendDeep"}, {"url": "Config.html#method__isObject", "access": "protected", "host": "Config", "type": "method", "name": "_isObject"}, {"url": "Config.html#method__loadFileConfigs", "access": "protected", "host": "Config", "type": "method", "name": "_loadFileConfigs"}, {"url": "Config.html#method_makeImmutable", "access": "", "host": "Config", "type": "method", "name": "makeImmutable"}, {"url": "Config.html#method__parseFile", "access": "protected", "host": "Config", "type": "method", "name": "_parseFile"}, {"url": "Config.html#method__persistConfigChanges", "access": "protected", "host": "Config", "type": "method", "name": "_persistConfigChanges"}, {"url": "Config.html#method_watch", "access": "", "host": "Config", "type": "method", "name": "watch"}, {"url": "Config.html#method__watchForConfigFileChanges", "access": "protected", "host": "Config", "type": "method", "name": "_watchForConfigFileChanges"}];
+    ALL_YUI_PROPS = [{"url": "Config.html#method__attachProtoDeep", "access": "protected", "host": "Config", "type": "method", "name": "_attachProtoDeep"}, {"url": "Config.html#method__cloneDeep", "access": "protected", "host": "Config", "type": "method", "name": "_cloneDeep"}, {"url": "Config.html#method_constructor", "access": "", "host": "Config", "type": "method", "name": "constructor"}, {"url": "Config.html#method__diffDeep", "access": "protected", "host": "Config", "type": "method", "name": "_diffDeep"}, {"url": "Config.html#method__equalsDeep", "access": "protected", "host": "Config", "type": "method", "name": "_equalsDeep"}, {"url": "Config.html#method__extendDeep", "access": "protected", "host": "Config", "type": "method", "name": "_extendDeep"}, {"url": "Config.html#method__isObject", "access": "protected", "host": "Config", "type": "method", "name": "_isObject"}, {"url": "Config.html#method__loadFileConfigs", "access": "protected", "host": "Config", "type": "method", "name": "_loadFileConfigs"}, {"url": "Config.html#method_makeImmutable", "access": "", "host": "Config", "type": "method", "name": "makeImmutable"}, {"url": "Config.html#method__parseFile", "access": "protected", "host": "Config", "type": "method", "name": "_parseFile"}, {"url": "Config.html#method__persistConfigsOnChange", "access": "protected", "host": "Config", "type": "method", "name": "_persistConfigsOnChange"}, {"url": "Config.html#method_setModuleDefaults", "access": "", "host": "Config", "type": "method", "name": "setModuleDefaults"}, {"url": "Config.html#method_watch", "access": "", "host": "Config", "type": "method", "name": "watch"}, {"url": "Config.html#method__watchForConfigFileChanges", "access": "protected", "host": "Config", "type": "method", "name": "_watchForConfigFileChanges"}];
 </script>
 </body>
 </html>
