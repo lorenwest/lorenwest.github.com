@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>MonitorUI-Client  MonitorApp  </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1310517220.58" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1310517220.58" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1317083552.92" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1317083552.92" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1310517220.58"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1310517220.58"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1317083552.92"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1317083552.92"></script>
 </head>
 
 <body id="node-monitor">
@@ -36,9 +36,9 @@
             <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
                 <fieldset>
                     <legend>Filters</legend>
-                <span class="classopts" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts" id="showPrivate" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
                 <span class="classopts" id="showProtected" style="display:none;" ><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
-                <span class="classopts" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                <span class="classopts" id="showDeprecated" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
                 </fieldset>
             </form>
 
@@ -59,8 +59,8 @@
   
 
                     <div class="summary description" property="yui:description">
-                        <p>MonitorApp is a 
-<a href="http://developer.yahoo.com/yui/3/api/Widget.html">YUI Widget</a> 
+                        <p>MonitorApp is a
+<a href="http://developer.yahoo.com/yui/3/api/Widget.html">YUI Widget</a>
 class representing the monitor application UI.
 </p>
 <p>The widget is usually placed within the top element of a blank page.</p>
@@ -109,7 +109,7 @@ document.getElementById("showProtected").style.display = "block";
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Reference to the Node instance containing everything below 
+                                            Reference to the Node instance containing everything below
 the header.
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@ among monitor screens.
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Category to prefix all event subscriptions to allow for ease of 
+                                            Category to prefix all event subscriptions to allow for ease of
 detach during destroy.
                                         </div>
                                     </div>
@@ -197,21 +197,6 @@ detach during destroy.
 
                                     <hr />
                                     </div>
-                                    <div class="protected" rel="yui:property" resource="#property__rpc">
-                                    <h4><a name="property__rpc" property="yui:name">_rpc</a>
-                                        - <code>protected <span property="yui:type">{JSON_RPC}</span></code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description" property="yui:description">
-                                            Reference to the JSON-RPC object for server interactions
-                                        </div>
-                                    </div>
-     
-                                        
-
-
-                                    <hr />
-                                    </div>
                                     <div class="protected" rel="yui:property" resource="#property__storage">
                                     <h4><a name="property__storage" property="yui:name">_storage</a>
                                         - <code>protected <span property="yui:type">object</span></code>
@@ -234,7 +219,7 @@ detach during destroy.
                                     <div class="detail">
                                         <div class="description" property="yui:description">
                                             Persistent ID for this instance, used as the key to localStorage
-for persistent attributes.  Set during construction based on the 
+for persistent attributes.  Set during construction based on the
 id attribute.
                                         </div>
                                     </div>
@@ -315,57 +300,6 @@ id attribute.
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
                                                         <span property="yui:description">  Tab ID - must exist in localStorage</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="protected" rel="yui:method" resource="#method__addProcess()">
-                                    <h4>
-                                        <a name="method__addProcess()">_addProcess()</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                         protected 
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">_addProcess()</strong>
-                                           (
-                                                
-                                                        
-                                                         id
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Add a new remote process widget to the browser
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">id</span>
-                                                        &lt;<span property="yui:type">String</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description">  Remote process ID - must exist in localStorage</span>
                                                         </dd>
                                                 </dl>
 
@@ -615,7 +549,7 @@ the list of processes if it's not there already.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Tears down the instance, flushing event subscriptions and purging 
+                                            Tears down the instance, flushing event subscriptions and purging
 the UI.
                                         </div>
 
@@ -745,7 +679,7 @@ and browser localStorage.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Generate the user interface.  This method is called by the YUI 
+                                            Generate the user interface.  This method is called by the YUI
 framework once to render the DOM for the UI.
                                         </div>
 
@@ -854,7 +788,6 @@ framework once to render the DOM for the UI.
                                 <li class="protected"><a href="#property__evtCat" title="_evtCat">_evtCat</a></li>
                                 <li class="protected"><a href="#property__footer" title="_footer">_footer</a></li>
                                 <li class="protected"><a href="#property__header" title="_header">_header</a></li>
-                                <li class="protected"><a href="#property__rpc" title="_rpc">_rpc</a></li>
                                 <li class="protected"><a href="#property__storage" title="_storage">_storage</a></li>
                                 <li class="protected"><a href="#property__storageId" title="_storageId">_storageId</a></li>
                                 <li class=""><a href="#property_MonitorApp.APP_TEMPLATE" title="MonitorApp.APP_TEMPLATE">MonitorApp.APP_TEMPLATE</a></li>
@@ -866,7 +799,6 @@ framework once to render the DOM for the UI.
                         <h4>Methods</h4>
                         <ul class="content">        
                                 <li class="protected"><a href="#method__addPage()" title="_addPage()">_addPage()</a></li>
-                                <li class="protected"><a href="#method__addProcess()" title="_addProcess()">_addProcess()</a></li>
                                 <li class="protected"><a href="#method__afterStringsChange" title="_afterStringsChange">_afterStringsChange</a></li>
                                 <li class="protected"><a href="#method__initLocalStorage()" title="_initLocalStorage()">_initLocalStorage()</a></li>
                                 <li class="protected"><a href="#method__onTabChange" title="_onTabChange">_onTabChange</a></li>
@@ -892,7 +824,7 @@ Released on <a href="https://github.com/lorenwest/node-monitor">github</a> under
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "MonitorApp.html#method__addPage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addPage()"}, {"url": "MonitorApp.html#method__addProcess()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addProcess()"}, {"url": "MonitorApp.html#method__afterStringsChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_afterStringsChange"}, {"url": "MonitorApp.html#method_bindUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "bindUI"}, {"url": "MonitorApp.html#property__body", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_body"}, {"url": "MonitorApp.html#property__browser", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_browser"}, {"url": "MonitorApp.html#property__desktop", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_desktop"}, {"url": "MonitorApp.html#method_destructor", "access": "protected", "host": "MonitorApp", "type": "method", "name": "destructor"}, {"url": "MonitorApp.html#property__evtCat", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_evtCat"}, {"url": "MonitorApp.html#property__footer", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_footer"}, {"url": "MonitorApp.html#property__header", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_header"}, {"url": "MonitorApp.html#method_initializer", "access": "protected", "host": "MonitorApp", "type": "method", "name": "initializer"}, {"url": "MonitorApp.html#method__initLocalStorage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_initLocalStorage()"}, {"url": "MonitorApp.html#method_log", "access": "", "host": "MonitorApp", "type": "method", "name": "log"}, {"url": "MonitorApp.html#property_MonitorApp.APP_TEMPLATE", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.APP_TEMPLATE"}, {"url": "MonitorApp.html#property_MonitorApp.NAME", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.NAME"}, {"url": "MonitorApp.html#method__onTabChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_onTabChange"}, {"url": "MonitorApp.html#method__persist()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_persist()"}, {"url": "MonitorApp.html#method_renderUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "renderUI"}, {"url": "MonitorApp.html#property__rpc", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_rpc"}, {"url": "MonitorApp.html#property__storage", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storage"}, {"url": "MonitorApp.html#property__storageId", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storageId"}, {"url": "MonitorApp.html#method_syncUI", "access": "", "host": "MonitorApp", "type": "method", "name": "syncUI"}];
+    ALL_YUI_PROPS = [{"url": "MonitorApp.html#method__addPage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addPage()"}, {"url": "MonitorApp.html#method__afterStringsChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_afterStringsChange"}, {"url": "MonitorApp.html#method_bindUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "bindUI"}, {"url": "MonitorApp.html#property__body", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_body"}, {"url": "MonitorApp.html#property__browser", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_browser"}, {"url": "MonitorApp.html#property__desktop", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_desktop"}, {"url": "MonitorApp.html#method_destructor", "access": "protected", "host": "MonitorApp", "type": "method", "name": "destructor"}, {"url": "MonitorApp.html#property__evtCat", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_evtCat"}, {"url": "MonitorApp.html#property__footer", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_footer"}, {"url": "MonitorApp.html#property__header", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_header"}, {"url": "MonitorApp.html#method_initializer", "access": "protected", "host": "MonitorApp", "type": "method", "name": "initializer"}, {"url": "MonitorApp.html#method__initLocalStorage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_initLocalStorage()"}, {"url": "MonitorApp.html#method_log", "access": "", "host": "MonitorApp", "type": "method", "name": "log"}, {"url": "MonitorApp.html#property_MonitorApp.APP_TEMPLATE", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.APP_TEMPLATE"}, {"url": "MonitorApp.html#property_MonitorApp.NAME", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.NAME"}, {"url": "MonitorApp.html#method__onTabChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_onTabChange"}, {"url": "MonitorApp.html#method__persist()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_persist()"}, {"url": "MonitorApp.html#method_renderUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "renderUI"}, {"url": "MonitorApp.html#property__storage", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storage"}, {"url": "MonitorApp.html#property__storageId", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storageId"}, {"url": "MonitorApp.html#method_syncUI", "access": "", "host": "MonitorApp", "type": "method", "name": "syncUI"}];
 </script>
 </body>
 </html>

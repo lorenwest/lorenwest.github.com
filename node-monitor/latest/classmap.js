@@ -1,4 +1,4 @@
-YAHOO.env.classMap = {"MonitorApp": "MonitorUI-Client"};
+YAHOO.env.classMap = {"Process": "monitor", "MonitorEvent": "monitor", "Probe": "monitor", "Monitor": "monitor"};
 
 YAHOO.env.resolveClass = function(className) {
     var a=className.split('.'), ns=YAHOO.env.classMap;

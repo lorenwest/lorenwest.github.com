@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>MonitorUI-Client   MonitorApp.js </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1310517220.58" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1310517220.58" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1317083552.92" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1317083552.92" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1310517220.58"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1310517220.58"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1317083552.92"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1317083552.92"></script>
 </head>
 
 <body id="node-monitor">
@@ -36,9 +36,9 @@
             <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
                 <fieldset>
                     <legend>Filters</legend>
-                <span class="classopts" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts" id="showPrivate" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
                 <span class="classopts" id="showProtected" style="display:none;" ><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
-                <span class="classopts" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                <span class="classopts" id="showDeprecated" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
                 </fieldset>
             </form>
 
@@ -55,13 +55,13 @@
 <span class="cm">   */</span>
 
   <span class="cm">/**</span>
-<span class="cm">   * &lt;p&gt;MonitorApp is a </span>
-<span class="cm">   *   &lt;a href=&quot;http://developer.yahoo.com/yui/3/api/Widget.html&quot;&gt;YUI Widget&lt;/a&gt; </span>
+<span class="cm">   * &lt;p&gt;MonitorApp is a</span>
+<span class="cm">   *   &lt;a href=&quot;http://developer.yahoo.com/yui/3/api/Widget.html&quot;&gt;YUI Widget&lt;/a&gt;</span>
 <span class="cm">   * class representing the monitor application UI.</span>
 <span class="cm">   * &lt;/p&gt;</span>
-<span class="cm">   * </span>
+<span class="cm">   *</span>
 <span class="cm">   * &lt;p&gt;The widget is usually placed within the top element of a blank page.&lt;/p&gt;</span>
-<span class="cm">   * </span>
+<span class="cm">   *</span>
 <span class="cm">   * &lt;script type=&quot;text/javascript&quot;&gt;</span>
 <span class="cm">   *   document.getElementById(&quot;showProtected&quot;).style.display = &quot;block&quot;;</span>
 <span class="cm">   * &lt;/script&gt;</span>
@@ -73,10 +73,10 @@
 <span class="cm">   */</span>
   <span class="kd">function</span> <span class="nx">MonitorApp</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="nx">t</span><span class="p">.</span><span class="nx">_rpc</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">rpc</span><span class="p">;</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">_appVersion</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">appVersion</span><span class="p">;</span>
     <span class="nx">MonitorApp</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
   <span class="p">}</span>
-	
+
   <span class="c1">// Private module level static properties</span>
   <span class="kd">var</span> <span class="nx">getCN</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">ClassNameManager</span><span class="p">.</span><span class="nx">getClassName</span><span class="p">,</span>
       <span class="nx">CONTENT_BOX</span>     <span class="o">=</span> <span class="s1">&#39;contentBox&#39;</span><span class="p">,</span>
@@ -87,14 +87,14 @@
       <span class="nx">NAMESPACE</span>       <span class="o">=</span> <span class="s1">&#39;Monitor&#39;</span><span class="p">,</span>
       <span class="nx">PROCESSES</span>       <span class="o">=</span> <span class="s1">&#39;processes&#39;</span><span class="p">,</span>
       <span class="nx">PAGES</span>           <span class="o">=</span> <span class="s1">&#39;pages&#39;</span><span class="p">,</span>
-      
+
       <span class="nx">CLICK</span>           <span class="o">=</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span>
       <span class="nx">SELECTED</span>        <span class="o">=</span> <span class="s1">&#39;selected&#39;</span><span class="p">,</span>
       <span class="nx">TAB_SELECTED</span>    <span class="o">=</span> <span class="s1">&#39;tab-selected&#39;</span><span class="p">,</span>
       <span class="nx">DOT</span>             <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
       <span class="nx">POUND</span>           <span class="o">=</span> <span class="s1">&#39;#&#39;</span><span class="p">,</span>
       <span class="nx">TAB_BODY_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;body-&#39;</span><span class="p">,</span>
-      
+
       <span class="nx">L</span>               <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Lang</span><span class="p">,</span>
       <span class="nx">create</span>          <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Node</span><span class="p">.</span><span class="nx">create</span><span class="p">,</span>
       <span class="nx">isNumber</span>        <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">,</span>
@@ -106,7 +106,7 @@
   <span class="kd">var</span> <span class="nx">W</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">MonitorApp</span> <span class="o">=</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">MonitorApp</span><span class="p">,</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Widget</span><span class="p">,</span> <span class="p">{</span>
 
     <span class="cm">/**</span>
-<span class="cm">     * Category to prefix all event subscriptions to allow for ease of </span>
+<span class="cm">     * Category to prefix all event subscriptions to allow for ease of</span>
 <span class="cm">     * detach during destroy.</span>
 <span class="cm">     *</span>
 <span class="cm">     * @property _evtCat</span>
@@ -117,7 +117,7 @@
 
     <span class="cm">/**</span>
 <span class="cm">     * Persistent ID for this instance, used as the key to localStorage</span>
-<span class="cm">     * for persistent attributes.  Set during construction based on the </span>
+<span class="cm">     * for persistent attributes.  Set during construction based on the</span>
 <span class="cm">     * id attribute.</span>
 <span class="cm">     *</span>
 <span class="cm">     * @property _storageId</span>
@@ -145,7 +145,7 @@
     <span class="nx">_header</span>    <span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
 
     <span class="cm">/**</span>
-<span class="cm">     * Reference to the Node instance containing everything below </span>
+<span class="cm">     * Reference to the Node instance containing everything below</span>
 <span class="cm">     * the header.</span>
 <span class="cm">     *</span>
 <span class="cm">     * @property _body</span>
@@ -175,22 +175,13 @@
     <span class="nx">_desktop</span>    <span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
 
     <span class="cm">/**</span>
-<span class="cm">     * Reference to the Node instance that contains the page footer </span>
+<span class="cm">     * Reference to the Node instance that contains the page footer</span>
 <span class="cm">     *</span>
 <span class="cm">     * @property _footer</span>
 <span class="cm">     * @type Node</span>
 <span class="cm">     * @protected</span>
 <span class="cm">     */</span>
     <span class="nx">_footer</span>    <span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * Reference to the JSON-RPC object for server interactions</span>
-<span class="cm">     *</span>
-<span class="cm">     * @property _rpc</span>
-<span class="cm">     * @type {JSON_RPC}</span>
-<span class="cm">     * @protected</span>
-<span class="cm">     */</span>
-    <span class="nx">_rpc</span> <span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
 
     <span class="cm">/**</span>
 <span class="cm">     * Wrapper for &lt;code&gt;Y.log&lt;/code&gt;.</span>
@@ -208,7 +199,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Constructor code.  Initialize member variables from attributes</span>
 <span class="cm">     * and browser localStorage.</span>
-<span class="cm">     * </span>
+<span class="cm">     *</span>
 <span class="cm">     * @method initializer</span>
 <span class="cm">     * @protected</span>
 <span class="cm">     */</span>
@@ -220,9 +211,9 @@
       <span class="c1">// Initialize local storage persistence</span>
       <span class="nx">t</span><span class="p">.</span><span class="nx">_initLocalStorage</span><span class="p">();</span>
     <span class="p">},</span>
-   
+
     <span class="cm">/**</span>
-<span class="cm">     * Tears down the instance, flushing event subscriptions and purging </span>
+<span class="cm">     * Tears down the instance, flushing event subscriptions and purging</span>
 <span class="cm">     * the UI.</span>
 <span class="cm">     *</span>
 <span class="cm">     * @method destructor</span>
@@ -236,7 +227,7 @@
     <span class="p">},</span>
 
     <span class="cm">/**</span>
-<span class="cm">     * Generate the user interface.  This method is called by the YUI </span>
+<span class="cm">     * Generate the user interface.  This method is called by the YUI</span>
 <span class="cm">     * framework once to render the DOM for the UI.</span>
 <span class="cm">     *</span>
 <span class="cm">     * @method renderUI</span>
@@ -244,6 +235,7 @@
 <span class="cm">     */</span>
     <span class="nx">renderUI</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span> <span class="nx">cb</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">CONTENT_BOX</span><span class="p">);</span>
+      <span class="nx">W</span><span class="p">.</span><span class="nx">appVersion</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">_appVersion</span><span class="p">;</span>
       <span class="nx">t</span><span class="p">.</span><span class="nx">_app</span> <span class="o">=</span> <span class="nx">create</span><span class="p">(</span><span class="nx">substitute</span><span class="p">(</span><span class="nx">W</span><span class="p">.</span><span class="nx">APP_TEMPLATE</span><span class="p">,</span> <span class="nx">W</span><span class="p">));</span>
       <span class="nx">cb</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">_app</span><span class="p">);</span>
       <span class="nx">t</span><span class="p">.</span><span class="nx">_header</span> <span class="o">=</span> <span class="nx">cb</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">DOT</span> <span class="o">+</span> <span class="nx">W</span><span class="p">.</span><span class="nx">C_HEADER</span><span class="p">);</span>
@@ -252,10 +244,11 @@
       <span class="nx">t</span><span class="p">.</span><span class="nx">_desktop</span> <span class="o">=</span> <span class="nx">cb</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">DOT</span> <span class="o">+</span> <span class="nx">W</span><span class="p">.</span><span class="nx">C_DESKTOP</span><span class="p">);</span>
       <span class="nx">t</span><span class="p">.</span><span class="nx">_footer</span> <span class="o">=</span> <span class="nx">cb</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">DOT</span> <span class="o">+</span> <span class="nx">W</span><span class="p">.</span><span class="nx">C_FOOTER</span><span class="p">);</span>
 
-      <span class="c1">// Load each page and remote process</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">id</span> <span class="k">in</span> <span class="nx">t</span><span class="p">.</span><span class="nx">_storage</span><span class="p">[</span><span class="nx">PROCESSES</span><span class="p">])</span> <span class="p">{</span><span class="nx">t</span><span class="p">.</span><span class="nx">_addProcess</span><span class="p">(</span><span class="nx">id</span><span class="p">);}</span>
+      <span class="c1">// Load the process browser</span>
+      <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Monitor</span><span class="p">.</span><span class="nx">ProcessBrowser</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">id</span><span class="p">}).</span><span class="nx">render</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">_browser</span><span class="p">);</span>
+
+      <span class="c1">// Load each page</span>
       <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">id</span> <span class="k">in</span> <span class="nx">t</span><span class="p">.</span><span class="nx">_storage</span><span class="p">[</span><span class="nx">PAGES</span><span class="p">])</span> <span class="p">{</span><span class="nx">t</span><span class="p">.</span><span class="nx">_addPage</span><span class="p">(</span><span class="nx">id</span><span class="p">);}</span>
-<span class="nx">t</span><span class="p">.</span><span class="nx">_addProcess</span><span class="p">(</span><span class="s2">&quot;df7-8:4200&quot;</span><span class="p">);</span>
     <span class="p">},</span>
 
     <span class="cm">/**</span>
@@ -290,7 +283,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Initialize from local storage, and add this connected host to</span>
 <span class="cm">     * the list of processes if it&#39;s not there already.</span>
-<span class="cm">     * </span>
+<span class="cm">     *</span>
 <span class="cm">     * @method _initLocalStorage()</span>
 <span class="cm">     * @protected</span>
 <span class="cm">     */</span>
@@ -315,32 +308,13 @@
 
     <span class="cm">/**</span>
 <span class="cm">     * Persist any configuration changes stored in the _storage object.</span>
-<span class="cm">     * </span>
+<span class="cm">     *</span>
 <span class="cm">     * @method _persist()</span>
 <span class="cm">     * @protected</span>
 <span class="cm">     */</span>
     <span class="nx">_persist</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
       <span class="nx">localStorage</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">_storageId</span><span class="p">]</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">_storage</span><span class="p">);</span>
-    <span class="p">},</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * Add a new remote process widget to the browser</span>
-<span class="cm">     *</span>
-<span class="cm">     * @method _addProcess()</span>
-<span class="cm">     * @param id {String} Remote process ID - must exist in localStorage</span>
-<span class="cm">     * @protected</span>
-<span class="cm">     */</span>
-    <span class="nx">_addProcess</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-      <span class="kd">var</span> <span class="nx">cb</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">CONTENT_BOX</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">id</span><span class="o">:</span><span class="nx">id</span><span class="p">,</span>
-        <span class="nx">rpc</span><span class="o">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">_rpc</span>
-      <span class="p">};</span>
-      <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Monitor</span><span class="p">.</span><span class="nx">RemoteProcess</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">render</span><span class="p">(</span><span class="nx">cb</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">DOT</span> <span class="o">+</span> <span class="nx">W</span><span class="p">.</span><span class="nx">C_BROWSER</span><span class="p">));</span>
-
     <span class="p">},</span>
 
     <span class="cm">/**</span>
@@ -420,7 +394,10 @@
 <span class="cm">     */</span>
     <span class="nx">APP_TEMPLATE</span><span class="o">:</span> <span class="p">[</span>
       <span class="s1">&#39;&lt;div class=&quot;{C_HEADER}&quot;&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Node.js Monitor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;&lt;h1&gt;&#39;</span><span class="p">,</span>
+	  <span class="s1">&#39;Node.js Monitor&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;&lt;span class=&quot;subtitle&quot;&gt;&lt;/span&gt;&#39;</span><span class="p">,</span>
+	<span class="s1">&#39;&lt;/h1&gt;&#39;</span><span class="p">,</span>
       <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span>
       <span class="s1">&#39;&lt;div class=&quot;yui3-g {C_BODY}&quot;&gt;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;&lt;div class=&quot;yui3-u {C_BROWSER}&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">,</span>
@@ -441,7 +418,7 @@
       <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span>
       <span class="s1">&#39;&lt;div class=&quot;{C_FOOTER}&quot;&gt;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Released on &lt;a href=&quot;https://github.com/lorenwest/node-monitor&quot;&gt;github&lt;/a&gt; under the &lt;a href=&quot;https://github.com/lorenwest/node-monitor/blob/master/LICENSE&quot;&gt;Apache License 2.0&lt;/a&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;&lt;span class=&quot;subtitle&quot;&gt;version 0.3.0&lt;/span&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;&lt;span class=&quot;subtitle&quot;&gt;&lt;a href=&quot;/doc/&quot;&gt;version {appVersion}&lt;/a&gt;&lt;/span&gt;&#39;</span><span class="p">,</span>
       <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span>
     <span class="s1">&#39;&#39;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">),</span>
 
@@ -459,7 +436,7 @@
   <span class="cm">/* Add this class to my application namespace */</span>
   <span class="nx">Y</span><span class="p">.</span><span class="nx">namespace</span><span class="p">(</span><span class="nx">NAMESPACE</span><span class="p">).</span><span class="nx">MonitorApp</span> <span class="o">=</span> <span class="nx">MonitorApp</span><span class="p">;</span>
 
-<span class="p">},</span> <span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">requires</span><span class="o">:</span><span class="p">[</span><span class="s2">&quot;widget&quot;</span><span class="p">,</span> <span class="s2">&quot;remoteprocess&quot;</span><span class="p">,</span> <span class="s2">&quot;yui-log&quot;</span><span class="p">,</span> <span class="s2">&quot;substitute&quot;</span><span class="p">]});</span>
+<span class="p">},</span> <span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">requires</span><span class="o">:</span><span class="p">[</span><span class="s2">&quot;widget&quot;</span><span class="p">,</span> <span class="s2">&quot;processbrowser&quot;</span><span class="p">,</span> <span class="s2">&quot;yui-log&quot;</span><span class="p">,</span> <span class="s2">&quot;substitute&quot;</span><span class="p">]});</span>
 </pre></div>
                     </div>
 			</div>
@@ -502,7 +479,7 @@ Released on <a href="https://github.com/lorenwest/node-monitor">github</a> under
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "MonitorApp.html#method__addPage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addPage()"}, {"url": "MonitorApp.html#method__addProcess()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addProcess()"}, {"url": "MonitorApp.html#method__afterStringsChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_afterStringsChange"}, {"url": "MonitorApp.html#method_bindUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "bindUI"}, {"url": "MonitorApp.html#property__body", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_body"}, {"url": "MonitorApp.html#property__browser", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_browser"}, {"url": "MonitorApp.html#property__desktop", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_desktop"}, {"url": "MonitorApp.html#method_destructor", "access": "protected", "host": "MonitorApp", "type": "method", "name": "destructor"}, {"url": "MonitorApp.html#property__evtCat", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_evtCat"}, {"url": "MonitorApp.html#property__footer", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_footer"}, {"url": "MonitorApp.html#property__header", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_header"}, {"url": "MonitorApp.html#method_initializer", "access": "protected", "host": "MonitorApp", "type": "method", "name": "initializer"}, {"url": "MonitorApp.html#method__initLocalStorage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_initLocalStorage()"}, {"url": "MonitorApp.html#method_log", "access": "", "host": "MonitorApp", "type": "method", "name": "log"}, {"url": "MonitorApp.html#property_MonitorApp.APP_TEMPLATE", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.APP_TEMPLATE"}, {"url": "MonitorApp.html#property_MonitorApp.NAME", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.NAME"}, {"url": "MonitorApp.html#method__onTabChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_onTabChange"}, {"url": "MonitorApp.html#method__persist()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_persist()"}, {"url": "MonitorApp.html#method_renderUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "renderUI"}, {"url": "MonitorApp.html#property__rpc", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_rpc"}, {"url": "MonitorApp.html#property__storage", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storage"}, {"url": "MonitorApp.html#property__storageId", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storageId"}, {"url": "MonitorApp.html#method_syncUI", "access": "", "host": "MonitorApp", "type": "method", "name": "syncUI"}];
+    ALL_YUI_PROPS = [{"url": "MonitorApp.html#method__addPage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_addPage()"}, {"url": "MonitorApp.html#method__afterStringsChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_afterStringsChange"}, {"url": "MonitorApp.html#method_bindUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "bindUI"}, {"url": "MonitorApp.html#property__body", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_body"}, {"url": "MonitorApp.html#property__browser", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_browser"}, {"url": "MonitorApp.html#property__desktop", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_desktop"}, {"url": "MonitorApp.html#method_destructor", "access": "protected", "host": "MonitorApp", "type": "method", "name": "destructor"}, {"url": "MonitorApp.html#property__evtCat", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_evtCat"}, {"url": "MonitorApp.html#property__footer", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_footer"}, {"url": "MonitorApp.html#property__header", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_header"}, {"url": "MonitorApp.html#method_initializer", "access": "protected", "host": "MonitorApp", "type": "method", "name": "initializer"}, {"url": "MonitorApp.html#method__initLocalStorage()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_initLocalStorage()"}, {"url": "MonitorApp.html#method_log", "access": "", "host": "MonitorApp", "type": "method", "name": "log"}, {"url": "MonitorApp.html#property_MonitorApp.APP_TEMPLATE", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.APP_TEMPLATE"}, {"url": "MonitorApp.html#property_MonitorApp.NAME", "access": "", "host": "MonitorApp", "type": "property", "name": "MonitorApp.NAME"}, {"url": "MonitorApp.html#method__onTabChange", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_onTabChange"}, {"url": "MonitorApp.html#method__persist()", "access": "protected", "host": "MonitorApp", "type": "method", "name": "_persist()"}, {"url": "MonitorApp.html#method_renderUI", "access": "protected", "host": "MonitorApp", "type": "method", "name": "renderUI"}, {"url": "MonitorApp.html#property__storage", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storage"}, {"url": "MonitorApp.html#property__storageId", "access": "protected", "host": "MonitorApp", "type": "property", "name": "_storageId"}, {"url": "MonitorApp.html#method_syncUI", "access": "", "host": "MonitorApp", "type": "method", "name": "syncUI"}];
 </script>
 </body>
 </html>

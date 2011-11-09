@@ -1,18 +1,28 @@
-<h2><b>Online Documentation</b> </h2> 
+<h2><b>Online Documentation</b> </h2>
 <div id="overview" class="summary description">
- 
-  <h2>Bootstrap TODO</h2>
+
+  <h2>TODO</h2>
   <ul>
-    <li>O - Get tests running on Node 0.4</li>
-    <li>O - New npm and package.json</li>
-    <li>O - Remove dependency on deps</li>
-    <li>O - Get docs working again (look at news player)</li>
-  </ul>
- 
-  <h2>Features TODO</h2>
-  <ul>
+    <li>O - Discovery.  What Servers are connected (connect menu?), and what Node processes are running node-monitor on the server?</li>
+    <ul>
+      <li>Servers: One master per server - Serving 4200 web + static assets + o/s level monitors</li>
+      <li>Servers: Each process listens on 42000-42099 for node monitoring</li>
+      <li>Servers: If master goes down, someone picks up 4200 responsibility</li>
+      <li>Client: Connects to 4200 for index.html + static assets + o/s level monitors</li>
+      <li>Client: Discovers 42000-42099 on each server - scans on a cycle w/refresh button</li>
+    </ul>
+    <li>O - Design the process browser, implement by attaching to a process and viewing monitor groups/monitors</li>
+    <li>O - Monitor - configurations
     <li>O - Re-think emitter/listener/mapper/reducer paradigm for monitoring</li>
     <li>O - Re-cast loggers, email, alerts, etc. into new pluggable paradigm</li>
+  </ul>
+
+  <h2>Bootstrap (done)</h2>
+  <ul>
+    <li>X - Get tests running on Node 0.4</li>
+    <li>X - New npm and package.json</li>
+    <li>X - Remove dependency on deps</li>
+    <li>X - Get docs working again (look at news player)</li>
   </ul>
 
   <h2>Introduction</h2>
@@ -28,12 +38,12 @@
     <li>Powerful - For multi-node enterprise deployment</li>
     <li>Easy Integration - For module developers</li>
   </ul>
-     
+
   <h2>Getting Started</h2>
   <p>
-    See the quick-start guide hosted on <a href="https://github.com/lorenwest/node-monitor">github</a>  
+    See the quick-start guide hosted on <a href="https://github.com/lorenwest/node-monitor">github</a>
   </p>
- 
+
   <h2>...</h2>
   <p>
     ...
