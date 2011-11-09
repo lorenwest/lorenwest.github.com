@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>monitor  Process  </title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1320681730.56" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1320681730.56" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1320681730.56"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1320681730.56"></script>
+</head>
+
+<body id="node-monitor">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="https://github.com/lorenwest/node-monitor" title="Node.js Monitor">Node.js Monitor</a></h1>
+        <a href="./index.html" title="Node.js Monitor">Node.js Monitor</a>
+            &gt; <a href="./module_monitor.html" title="monitor">monitor</a>
+                 &gt; Process 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts" id="showPrivate" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts" id="showProtected" style="display:none;" ><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts" id="showDeprecated" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        
+
+                        
+                        
+                            Class: <b property="yui:name">Process</b>
+                        <span class="extends">
+                           - extends <a href="Probe.html" title="Probe">Probe</a>
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+
+
+
+
+                    <div class="summary description" property="yui:description">
+                        Probe for application process information.
+                    </div>
+
+                        <div class="section constructor details" rel="yui:constructor" resource="#constructor">
+                        <h3 id="constructor">Constructor</h3>
+                        <div class="content">
+                            <div class="detail">
+                                <strong property="yui:name">Process</strong>
+                                <code>
+                                    (
+
+                                        
+                                                
+                                                name
+
+                                                , 
+                                                config
+                                    )
+                                </code>
+                                <div class="description">
+                                        <dl rel="yui:parameters">
+                                            <dt>Parameters:</dt>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">name</span>
+                                                    &lt;<span property="yui:type">String</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description"> - A name identifying the instance of this monitor.</span>
+                                                </dd>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">config</span>
+                                                    &lt;<span property="yui:type">Object</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description"> - Configuration override object</span>
+                                                </dd>
+                                        </dl>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:properties" resource="#properties">
+
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:method" resource="#method_start">
+                                    <h4>
+                                        <a name="method_start">start</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">start</strong>
+                                           (
+                                                
+                                                        
+                                                         callback(error)
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Start the monitor
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">callback(error)</span>
+                                                        &lt;<span property="yui:type">Function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> - (optional) Called when the monitor has started</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div rel="yui:inheritance">
+                            <div class="section field inheritance" rel="yui:superclass"  resource="Probe.html">
+                                <h4>Methods inherited from <a href="Probe.html" property="yui:name" title="Probe">Probe</a>:</h4>
+                                <div class="content" rel="yui:methods">
+                                    <code>
+                                            <span rel="yui:method" resource="Probe.html#method_emitMonitorEvent">
+                                            <a class="" href="Probe.html#method_emitMonitorEvent" property="yui:name" title="emitMonitorEvent">emitMonitorEvent</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Probe.html#method_start">
+                                            <a class="" href="Probe.html#method_start" property="yui:name" title="start">start</a><span class="">,</span>
+                                            </span>
+                                            <span rel="yui:method" resource="Probe.html#method_stop">
+                                            <a class="" href="Probe.html#method_stop" property="yui:name" title="stop">stop</a>
+                                            </span>
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+
+
+                        <div rel="yui:inheritance">
+                        <div class="section field inheritance" rel="yui:superclass"  resource="Probe.html">
+                            <h4>Events inherited from <a href="Probe.html" property="yui:name" title="Probe">Probe</a>:</h4>
+                            <div class="content" rel="yui:events">
+                                <code>
+                                        <span rel="yui:event" resource="Probe.html#event_monitor">
+                                        <a class="" href="Probe.html#event_monitor" property="yui:name" title="monitor">monitor</a><span class="">,</span>
+                                        </span>
+                                                                            <span rel="yui:event" resource="Probe.html#event_start">
+                                        <a class="" href="Probe.html#event_start" property="yui:name" title="start">start</a>
+                                        </span>
+                                                                            <span rel="yui:event" resource="Probe.html#event_stop">
+                                        <a class="" href="Probe.html#event_stop" property="yui:name" title="stop">stop</a>
+                                        </span>
+                                    
+                                </code>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_monitor.html" title="monitor">monitor</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Monitor.html" title="Monitor">Monitor</a></li>
+                                <li class=""><a href="MonitorEvent.html" title="MonitorEvent">MonitorEvent</a></li>
+                                <li class=""><a href="Probe.html" title="Probe">Probe</a></li>
+                                <li class="selected"><a href="Process.html" title="Process">Process</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class=""><a href="monitor-event.js.html" title="monitor-event.js">monitor-event.js</a></li>
+                                <li class=""><a href="monitor.js.html" title="monitor.js">monitor.js</a></li>
+                                <li class=""><a href="probe.js.html" title="probe.js">probe.js</a></li>
+                                <li class=""><a href="process.js.html" title="process.js">process.js</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">
+                                <li class=""><a href="#method_start" title="start">start</a></li>
+                        </ul>
+                    </div>
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+Released on <a href="https://github.com/lorenwest/node-monitor">github</a> under the <a href="https://github.com/lorenwest/node-monitor/blob/master/LICENSE">Apache License 2.0</a>
+<span class="subtitle">version 0.4.0</span>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Probe.html#method_emitMonitorEvent", "access": "", "host": "Probe", "type": "method", "name": "emitMonitorEvent"}, {"url": "Monitor.html#method_getClassConstructor", "access": "", "host": "Monitor", "type": "method", "name": "getClassConstructor"}, {"url": "Monitor.html#method_getClassDefinition", "access": "", "host": "Monitor", "type": "method", "name": "getClassDefinition"}, {"url": "Monitor.html#method_getClassDefinitions", "access": "", "host": "Monitor", "type": "method", "name": "getClassDefinitions"}, {"url": "Monitor.html#method_getProbe", "access": "", "host": "Monitor", "type": "method", "name": "getProbe"}, {"url": "Monitor.html#method_getProbeDefinition", "access": "", "host": "Monitor", "type": "method", "name": "getProbeDefinition"}, {"url": "Monitor.html#method_getProbeDefinitions", "access": "", "host": "Monitor", "type": "method", "name": "getProbeDefinitions"}, {"url": "Probe.html#event_monitor", "access": "", "host": "Probe", "type": "event", "name": "monitor"}, {"url": "Monitor.html#method_registerClass", "access": "", "host": "Monitor", "type": "method", "name": "registerClass"}, {"url": "Monitor.html#method_registerProbe", "access": "", "host": "Monitor", "type": "method", "name": "registerProbe"}, {"url": "Monitor.html#method_start", "access": "", "host": "Monitor", "type": "method", "name": "start"}, {"url": "Probe.html#method_start", "access": "", "host": "Probe", "type": "method", "name": "start"}, {"url": "Probe.html#event_start", "access": "", "host": "Probe", "type": "event", "name": "start"}, {"url": "Process.html#method_start", "access": "", "host": "Process", "type": "method", "name": "start"}, {"url": "Monitor.html#method_startUI", "access": "", "host": "Monitor", "type": "method", "name": "startUI"}, {"url": "Monitor.html#method_stop", "access": "", "host": "Monitor", "type": "method", "name": "stop"}, {"url": "Probe.html#method_stop", "access": "", "host": "Probe", "type": "method", "name": "stop"}, {"url": "Probe.html#event_stop", "access": "", "host": "Probe", "type": "event", "name": "stop"}, {"url": "Monitor.html#method_stopUI", "access": "", "host": "Monitor", "type": "method", "name": "stopUI"}];
+</script>
+</body>
+</html>

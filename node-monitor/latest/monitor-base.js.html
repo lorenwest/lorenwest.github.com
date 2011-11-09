@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>monitor   monitor-base.js </title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1319847355.94" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1319847355.94" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1319847355.94"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1319847355.94"></script>
+</head>
+
+<body id="node-monitor">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="https://github.com/lorenwest/node-monitor" title="Node.js Monitor">Node.js Monitor</a></h1>
+        <a href="./index.html" title="Node.js Monitor">Node.js Monitor</a>
+            &gt; <a href="./module_monitor.html" title="monitor">monitor</a>
+                
+                 &gt; monitor-base.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts" id="showPrivate" style="display:none;" ><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts" id="showProtected" style="display:none;" ><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts" id="showDeprecated" style="display:none;" ><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c1">// Dependencies</span>
+<span class="kd">var</span> <span class="nx">sys</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sys&#39;</span><span class="p">),</span>
+    <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">),</span>
+    <span class="nx">Config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">),</span>
+    <span class="nx">Monitor</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./monitor&#39;</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * &lt;p&gt;Base class from which all monitors are derived.&lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * @class MonitorBase</span>
+<span class="cm"> * @extends events.EventEmitter</span>
+<span class="cm"> * @constructor</span>
+<span class="cm"> * @param {String} classId - The registered class ID</span>
+<span class="cm"> * @param {String} name - A name identifying the instance of this monitor.</span>
+<span class="cm"> * @param {Object} config - Public instance configurations</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">MonitorBase</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">classId</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span> <span class="nx">classDef</span> <span class="o">=</span> <span class="nx">Monitor</span><span class="p">.</span><span class="nx">getClassDefinition</span><span class="p">(</span><span class="nx">classId</span><span class="p">);</span>
+    <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">classId</span> <span class="o">=</span> <span class="nx">classId</span><span class="p">;</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">?</span> <span class="nx">name</span> <span class="o">:</span> <span class="nx">classDef</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_extendDeep</span><span class="p">({},</span> <span class="nx">classDef</span><span class="p">.</span><span class="nx">defaultParameters</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">isMonitoring</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="c1">// Register this monitor instance</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">monitorId</span> <span class="o">=</span> <span class="nx">Monitor</span><span class="p">.</span><span class="nx">registerMonitor</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">sys</span><span class="p">.</span><span class="nx">inherits</span><span class="p">(</span><span class="nx">MonitorBase</span><span class="p">,</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * &lt;p&gt;Start monitoring.&lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> *   Sub-classes that override start/stop in order to obtain/release resources must</span>
+<span class="cm"> *   assure this method is called.</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * @method start</span>
+<span class="cm"> */</span>
+<span class="cm">/**</span>
+<span class="cm"> * The monitor has started.</span>
+<span class="cm"> * @event start</span>
+<span class="cm"> * @param {Object} event - event.mId: MonitorID that has started.</span>
+<span class="cm"> */</span>
+<span class="nx">MonitorBase</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nx">isMonitoring</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">mId</span><span class="o">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">monitorId</span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * &lt;p&gt;Stop monitoring.&lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> *   Sub-classes that override start/stop in order to obtain/release resources must</span>
+<span class="cm"> *   assure this method is called.</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * @method stop</span>
+<span class="cm"> */</span>
+<span class="cm">/**</span>
+<span class="cm"> * The monitor has stopped.</span>
+<span class="cm"> * @event stop</span>
+<span class="cm"> * @param {Object} event - event.mId: MonitorID that has stopped.</span>
+<span class="cm"> */</span>
+<span class="nx">MonitorBase</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nx">isMonitoring</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">mId</span><span class="o">:</span><span class="nx">t</span><span class="p">.</span><span class="nx">monitorId</span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Emit a monitor event.</span>
+<span class="cm"> *</span>
+<span class="cm"> * This method is called by sub-classes to emit events being monitored.</span>
+<span class="cm"> * @method monitorEvent</span>
+<span class="cm"> * @param {String} eventName - Name of the event being monitored</span>
+<span class="cm"> * @param {Object} data - A data object containing additional information about the event.</span>
+<span class="cm"> */</span>
+<span class="cm">/**</span>
+<span class="cm"> * This is the main event fired whenever there&#39;s something to monitor.</span>
+<span class="cm"> * @event monitor</span>
+<span class="cm"> * @param {MonitorEvent} event - The object representing the monitor event</span>
+<span class="cm"> */</span>
+<span class="nx">MonitorBase</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">monitorEvent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;monitor&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">MonitorEvent</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">monitorId</span><span class="p">,</span> <span class="nx">data</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Monitor event model</span>
+<span class="cm"> *</span>
+<span class="cm"> * Instances of this class represent a single monitored event.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @class MonitorEvent</span>
+<span class="cm"> * @constructor</span>
+<span class="cm"> * @param {String} name - Name of the event being monitored</span>
+<span class="cm"> * @param {Integer} mId - The registered ID of the monitor that generated the event</span>
+<span class="cm"> * @param {Object} data - Additional data to monitor (optional)</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">MonitorEvent</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">mId</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">stamp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">mId</span> <span class="o">=</span> <span class="nx">mId</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_monitor.html" title="monitor">monitor</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Monitor.html" title="Monitor">Monitor</a></li>
+                                <li class=""><a href="MonitorBase.html" title="MonitorBase">MonitorBase</a></li>
+                                <li class=""><a href="MonitorEvent.html" title="MonitorEvent">MonitorEvent</a></li>
+                                <li class=""><a href="ProcessMonitor.html" title="ProcessMonitor">ProcessMonitor</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="monitor-base.js.html" title="monitor-base.js">monitor-base.js</a></li>
+                                <li class=""><a href="monitor.js.html" title="monitor.js">monitor.js</a></li>
+                                <li class=""><a href="process-monitor.js.html" title="process-monitor.js">process-monitor.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+Released on <a href="https://github.com/lorenwest/node-monitor">github</a> under the <a href="https://github.com/lorenwest/node-monitor/blob/master/LICENSE">Apache License 2.0</a>
+<span class="subtitle">version 0.4.0</span>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Monitor.html#method_getClassConstructor", "access": "", "host": "Monitor", "type": "method", "name": "getClassConstructor"}, {"url": "Monitor.html#method_getClassDefinition", "access": "", "host": "Monitor", "type": "method", "name": "getClassDefinition"}, {"url": "Monitor.html#method_getClassDefinitions", "access": "", "host": "Monitor", "type": "method", "name": "getClassDefinitions"}, {"url": "Monitor.html#method_getMonitor", "access": "", "host": "Monitor", "type": "method", "name": "getMonitor"}, {"url": "Monitor.html#method_getMonitorDefinition", "access": "", "host": "Monitor", "type": "method", "name": "getMonitorDefinition"}, {"url": "Monitor.html#method_getMonitorDefinitions", "access": "", "host": "Monitor", "type": "method", "name": "getMonitorDefinitions"}, {"url": "MonitorBase.html#event_monitor", "access": "", "host": "MonitorBase", "type": "event", "name": "monitor"}, {"url": "MonitorBase.html#method_monitorEvent", "access": "", "host": "MonitorBase", "type": "method", "name": "monitorEvent"}, {"url": "Monitor.html#method_registerClass", "access": "", "host": "Monitor", "type": "method", "name": "registerClass"}, {"url": "Monitor.html#method_registerMonitor", "access": "", "host": "Monitor", "type": "method", "name": "registerMonitor"}, {"url": "MonitorBase.html#method_start", "access": "", "host": "MonitorBase", "type": "method", "name": "start"}, {"url": "MonitorBase.html#event_start", "access": "", "host": "MonitorBase", "type": "event", "name": "start"}, {"url": "Monitor.html#method_start", "access": "", "host": "Monitor", "type": "method", "name": "start"}, {"url": "ProcessMonitor.html#method_start", "access": "", "host": "ProcessMonitor", "type": "method", "name": "start"}, {"url": "Monitor.html#method_startUI", "access": "", "host": "Monitor", "type": "method", "name": "startUI"}, {"url": "MonitorBase.html#method_stop", "access": "", "host": "MonitorBase", "type": "method", "name": "stop"}, {"url": "MonitorBase.html#event_stop", "access": "", "host": "MonitorBase", "type": "event", "name": "stop"}, {"url": "Monitor.html#method_stop", "access": "", "host": "Monitor", "type": "method", "name": "stop"}];
+</script>
+</body>
+</html>
