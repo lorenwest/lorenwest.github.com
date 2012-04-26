@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>config   config.js </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1335369884.79" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1335369884.79" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1335400935.6" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1335400935.6" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1335369884.79"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1335369884.79"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1335400935.6"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1335400935.6"></script>
 </head>
 
 <body id="node-monitor">
@@ -459,7 +459,7 @@
 <span class="cm"> * &lt;p&gt;</span>
 <span class="cm"> * This method allows you to change the polling interval from the default</span>
 <span class="cm"> * interval (2.5 seconds), or to turn file watching off.  On Linux systems with</span>
-<span class="cm"> * inotify, this interval is ignored.</span>
+<span class="cm"> * inotify, and in node.js versions 0.6 and above, this interval is ignored.</span>
 <span class="cm"> * &lt;/p&gt;</span>
 <span class="cm"> *</span>
 <span class="cm"> * @method watchForConfigFileChanges</span>
@@ -667,9 +667,11 @@
 <span class="cm"> * .coffee = File to run that has a module.exports with coffee-script containing the config object</span>
 <span class="cm"> * .yaml = Parsed with a YAML parser</span>
 <span class="cm"> *</span>
-<span class="cm"> * If the file doesn&#39;t exist, a null will be returned.</span>
+<span class="cm"> * If the file doesn&#39;t exist, a null will be returned.  If the file can&#39;t be</span>
+<span class="cm"> * parsed, an exception will be thrown.</span>
 <span class="cm"> *</span>
-<span class="cm"> * If the file can&#39;t be parsed, an exception will be thrown.</span>
+<span class="cm"> * This method performs synchronous file operations, and should not be called</span>
+<span class="cm"> * after synchronous module loading.</span>
 <span class="cm"> *</span>
 <span class="cm"> * @protected</span>
 <span class="cm"> * @method _parseFile</span>
@@ -684,17 +686,26 @@
       <span class="nx">configObject</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
       <span class="nx">fileContent</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 
+  <span class="c1">// Make sure the runtime.json file exists.  This is required for fs.watch().</span>
+  <span class="kd">var</span> <span class="nx">checkRuntimeJson</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">fullFilename</span> <span class="o">==</span> <span class="nx">runtimeJsonFilename</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Writing runtime json file&quot;</span><span class="p">);</span>
+      <span class="nx">FileSystem</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">runtimeJsonFilename</span><span class="p">,</span> <span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+      <span class="k">return</span> <span class="p">{};</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">};</span>
+
   <span class="c1">// Return null if the file doesn&#39;t exist.</span>
-  <span class="c1">// Note that all methods here are the Sync versions.  This allows the</span>
-  <span class="c1">// config package to follow the same calling semantics as require(&#39;filename&#39;)</span>
-  <span class="c1">// which is also synchronous.</span>
+  <span class="c1">// Note that all methods here are the Sync versions.  This is appropriate during</span>
+  <span class="c1">// module loading (which is a synchronous operation), but not thereafter.</span>
   <span class="k">try</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">stat</span> <span class="o">=</span> <span class="nx">FileSystem</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">fullFilename</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stat</span> <span class="o">||</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">checkRuntimeJson</span><span class="p">();</span>
     <span class="p">}</span>
   <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">checkRuntimeJson</span><span class="p">();</span>
   <span class="p">}</span>
 
   <span class="c1">// Try loading the file.</span>
@@ -1132,7 +1143,7 @@
 	<div id="ft">
         <hr />
 Released on <a href="https://github.com/lorenwest/node-config">github</a> under the <a href="https://github.com/lorenwest/node-config/blob/master/LICENSE">Apache License 2.0</a>
-<span class="subtitle">version 0.4.12</span>
+<span class="subtitle">version 0.4.13</span>
 	</div>
 </div>
 <script type="text/javascript">
