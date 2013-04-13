@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>config   config.js </title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1364618460.8" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1364618460.8" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1365868537.07" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1365868537.07" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1364618460.8"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1364618460.8"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1365868537.07"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1365868537.07"></script>
 </head>
 
 <body id="node-monitor">
@@ -65,6 +65,8 @@
     <span class="nx">CONFIG_DIR</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">[</span><span class="nx">DIR</span><span class="p">]</span> <span class="o">||</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/config&#39;</span><span class="p">,</span>
     <span class="nx">RUNTIME</span> <span class="o">=</span> <span class="s1">&#39;NODE_CONFIG_RUNTIME_JSON&#39;</span><span class="p">,</span>
     <span class="nx">runtimeJsonFilename</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">[</span><span class="nx">RUNTIME</span><span class="p">]</span> <span class="o">||</span> <span class="nx">CONFIG_DIR</span> <span class="o">+</span> <span class="s1">&#39;/runtime.json&#39;</span><span class="p">,</span>
+    <span class="nx">INSTANCE</span> <span class="o">=</span> <span class="s1">&#39;NODE_CONFIG_INSTANCE&#39;</span><span class="p">,</span>
+    <span class="nx">appInstance</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">[</span><span class="nx">NODE_CONFIG_INSTANCE</span><span class="p">],</span>
     <span class="nx">originalConfig</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>       <span class="c1">// Not including the runtime.json values</span>
     <span class="nx">runtimeJson</span> <span class="o">=</span> <span class="p">{},</span>            <span class="c1">// Current runtimeJson extensions</span>
     <span class="nx">runtimeJsonWatcher</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>   <span class="c1">// Filesystem watcher for runtime.json</span>
