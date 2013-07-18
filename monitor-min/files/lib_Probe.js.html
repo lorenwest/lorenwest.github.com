@@ -15,7 +15,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            <h1><a href="../index.html">Monitor Min</a> <span class="version">v0.5.4</span></h1>
+            <h1><a href="../index.html">Monitor Min</a> <span class="version">v0.5.5</span></h1>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -36,10 +36,6 @@
 
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
-            
-                <li><a href="..&#x2F;classes/ConfigProbe.html">ConfigProbe</a></li>
-            
-                <li><a href="..&#x2F;classes/ConfigTest.html">ConfigTest</a></li>
             
                 <li><a href="..&#x2F;classes/Connection.html">Connection</a></li>
             
@@ -103,10 +99,6 @@
             
                 <li><a href="..&#x2F;modules/Monitor.html">Monitor</a></li>
             
-                <li><a href="..&#x2F;modules/Probes.html">Probes</a></li>
-            
-                <li><a href="..&#x2F;modules/UnitTests.html">UnitTests</a></li>
-            
             </ul>
         </div>
     </div>
@@ -149,6 +141,8 @@
 
   &#x2F;&#x2F; Module loading
   var Monitor = root.Monitor || require(&#x27;.&#x2F;Monitor&#x27;),
+      log = Monitor.getLogger(&#x27;Probe&#x27;),
+      stat = Monitor.getStatLogger(&#x27;Probe&#x27;),
       Cron = Monitor.Cron, _ = Monitor._, Backbone = Monitor.Backbone;
 
   &#x2F;**
@@ -217,7 +211,10 @@
     *         if asyncInit is set to true.  If an error is passed, the probe
     *         will not be used.
     *&#x2F;
-    initialize: function(attributes, options) {},
+    initialize: function(attributes, options) {
+      var t = this;
+      log.info(&#x27;init&#x27;, t.toJSON(), options);
+    },
 
     &#x2F;**
     * Release any resources consumed by this probe.
@@ -230,7 +227,10 @@
     *
     * @method release
     *&#x2F;
-    release: function(){},
+    release: function(){
+      var t = this;
+      log.info(&#x27;release&#x27;, t.toJSON());
+    },
 
     &#x2F;**
     * Dispatch a control message to the appropriate control function.
@@ -258,16 +258,38 @@
     * &lt;&#x2F;ul&gt;
     *&#x2F;
     onControl: function(name, params, callback) {
+      var t = this,
+          controlFn = t[name + &#x27;_control&#x27;],
+          startTime = Date.now(),
+          errMsg,
+          logId = &#x27;onControl.&#x27; + t.probeClass + &#x27;.&#x27; + name;
+
       params = params || {};
       callback = callback || function(){};
-      var t = this, controlFn = t[name + &#x27;_control&#x27;], errMsg;
-      if (!controlFn) {return callback({msg:&#x27;No control function: &#x27; + name});}
+      log.info(logId, t.get(&#x27;id&#x27;), params);
+
+      if (!controlFn) {
+        errMsg = &#x27;No control function: &#x27; + name;
+        log.error(logId, errMsg);
+        return callback({msg: errMsg});
+      }
+
+      var whenDone = function(error) {
+        if (error) {
+          log.error(logId, error);
+          return callback(error);
+        }
+        var duration = Date.now() - startTime;
+        log.info(logId, params);
+        stat.time(t.logId, duration);
+        callback.apply(null, arguments);
+      };
+
       try {
-        controlFn.call(t, params, callback);
+        controlFn.call(t, params, whenDone);
       } catch (e) {
         errMsg = &#x27;Error calling control: &#x27; + t.probeClass + &#x27;:&#x27; + name;
-        console.error(errMsg, e);
-        callback({msg:errMsg});
+        whenDone({msg:errMsg, err: e});
       }
     },
 
