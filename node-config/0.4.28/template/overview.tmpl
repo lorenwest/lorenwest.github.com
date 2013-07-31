@@ -1,43 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>  </title>
-
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1375284117.08" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1375284117.08" />
-
-    <script type="text/javascript" src="assets/api-js?stamp=1375284117.08"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1375284117.08"></script>
-</head>
-
-<body id="node-monitor">
-
-<div id="doc3" class="yui-t2">
-	<div id="hd">
-        <h1><a href="https://github.com/lorenwest/node-config" title="Node.js Configuration">Node.js Configuration</a></h1>
-        <a href="./index.html" title="Node.js Configuration">Node.js Configuration</a>
-        <form onsubmit="return false">
-            <div id="propertysearch">
-                Search: <input autocomplete="off" id="searchinput" />
-                <div id="searchresults">
-                    &nbsp;
-                </div>
-            </div>
-        </form>
-	</div>
-
-	<div id="bd">
-		<div id="yui-main">
-			<div class="yui-b">
-            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
-                <fieldset>
-                    <legend>Filters</legend>
-                <span class="classopts" style="display:none;"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
-                <span id="showProtected" class="classopts" style="display:none'"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
-                <span class="classopts" style="display:none;"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
-                </fieldset>
-            </form>
 <h2><b>Online Documentation</b> </h2>
 <div id="overview" class="summary description">
 
@@ -92,13 +52,13 @@
     this package.
   </p>
   <p>
-    <i>hostname</i> is the $HOST environment variable if set, otherwise the $HOSTNAME 
+    <i>hostname</i> is the \$HOST environment variable if set, otherwise the \$HOSTNAME 
     environment variable if set, otherwise the hostname found from 
     require('os').hostname(). Once a hostname is found, everything from the 
     first period ('.') onwards is removed. For example, abc.example.com becomes abc
   </p>
   <p>
-    <i>deployment</i> is the deployment type, found in the $NODE_ENV environment
+    <i>deployment</i> is the deployment type, found in the \$NODE_ENV environment
     variable.  Defaults to 'development'.
   </p>
   <p>
@@ -183,7 +143,7 @@
   <h2>Multiple Instance Configuration</h2>
   <p>
     When running multiple instances of your application, you may specify the
-    <i>$NODE_APP_INSTANCE</i> environment variable prior to running
+    <i>\$NODE_APP_INSTANCE</i> environment variable prior to running
     your app. If set, this variable should contain an identifier for
     the specific instance of your app on this server, or within the network.
   </p>
@@ -212,16 +172,16 @@
   <h2>Environment Variable Configuration</h2>
   <p>
     Environment variables can be used to override file configurations.
-    Any environment variable that starts with <i>$CONFIG_</i>
+    Any environment variable that starts with <i>\$CONFIG_</i>
     is set into the CONFIG object.
   </p>
   <p>
-    For example, setting <i>$CONFIG_Customer_dbPort=5984</i> will set
+    For example, setting <i>\$CONFIG_Customer_dbPort=5984</i> will set
     the CONFIG.Customer.dbPort variable, overriding all file configurations.
   </p>
   <p>
     Underscores in variable names can be escaped by a double underscore <strong>__</strong>.
-    Example:  <i>$CONFIG_Customer_DB__PORT=5984</i> will set the CONFIG.Customer.DB_PORT
+    Example:  <i>\$CONFIG_Customer_DB__PORT=5984</i> will set the CONFIG.Customer.DB_PORT
     configuration variable to 5984.
   </p>
 
@@ -305,54 +265,3 @@
   </p>
 
 </div>
-
-			</div>
-		</div>
-		<div class="yui-b">
-            <div class="nav">
-
-                    <div id="moduleList" class="module">
-                        <h4>Modules</h4>
-                        <ul class="content">
-                                <li class=""><a href="module_config.html" title="config">config</a></li>
-                                <li class=""><a href="module_test.html" title="test">test</a></li>
-                        </ul>
-                    </div>
-
-                    <div id="classList" class="module">
-                        <h4>Classes</h4>
-                        <ul class="content">
-                                <li class=""><a href="Config.html" title="Config">Config</a></li>
-                                <li class=""><a href="ConfigTest.html" title="ConfigTest">ConfigTest</a></li>
-                                <li class=""><a href="ProtectedTest.html" title="ProtectedTest">ProtectedTest</a></li>
-                        </ul>
-                    </div>
-
-                    <div id="fileList" class="module">
-                        <h4>Files</h4>
-                        <ul class="content">        
-                                <li class=""><a href="1-protected-test.js.html" title="1-protected-test.js">1-protected-test.js</a></li>
-                                <li class=""><a href="2-config-test.js.html" title="2-config-test.js">2-config-test.js</a></li>
-                                <li class=""><a href="config.js.html" title="config.js">config.js</a></li>
-                                <li class=""><a href="default.js.html" title="default.js">default.js</a></li>
-                        </ul>
-                    </div>
-
-
-
-
-
-            </div>
-		</div>
-	</div>
-	<div id="ft">
-        <hr />
-Released on <a href="https://github.com/lorenwest/node-config">github</a> under the <a href="https://github.com/lorenwest/node-config/blob/master/LICENSE">Apache License 2.0</a>
-<span class="subtitle">version 0.4.28</span>
-	</div>
-</div>
-<script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Config.html#method__attachProtoDeep", "access": "protected", "host": "Config", "type": "method", "name": "_attachProtoDeep"}, {"url": "Config.html#method__cloneDeep", "access": "protected", "host": "Config", "type": "method", "name": "_cloneDeep"}, {"url": "Config.html#method_constructor", "access": "", "host": "Config", "type": "method", "name": "constructor"}, {"url": "Config.html#method__diffDeep", "access": "protected", "host": "Config", "type": "method", "name": "_diffDeep"}, {"url": "Config.html#method__equalsDeep", "access": "protected", "host": "Config", "type": "method", "name": "_equalsDeep"}, {"url": "Config.html#method__extendDeep", "access": "protected", "host": "Config", "type": "method", "name": "_extendDeep"}, {"url": "Config.html#method_getOriginalConfig", "access": "", "host": "Config", "type": "method", "name": "getOriginalConfig"}, {"url": "Config.html#method__isObject", "access": "protected", "host": "Config", "type": "method", "name": "_isObject"}, {"url": "Config.html#method__loadFileConfigs", "access": "protected", "host": "Config", "type": "method", "name": "_loadFileConfigs"}, {"url": "Config.html#method_makeHidden", "access": "", "host": "Config", "type": "method", "name": "makeHidden"}, {"url": "Config.html#method_makeImmutable", "access": "", "host": "Config", "type": "method", "name": "makeImmutable"}, {"url": "Config.html#method__parseFile", "access": "protected", "host": "Config", "type": "method", "name": "_parseFile"}, {"url": "Config.html#method__persistConfigsOnChange", "access": "protected", "host": "Config", "type": "method", "name": "_persistConfigsOnChange"}, {"url": "Config.html#method_resetRuntime", "access": "", "host": "Config", "type": "method", "name": "resetRuntime"}, {"url": "Config.html#method_setModuleDefaults", "access": "", "host": "Config", "type": "method", "name": "setModuleDefaults"}, {"url": "Config.html#method__stripComments", "access": "protected", "host": "Config", "type": "method", "name": "_stripComments"}, {"url": "Config.html#method__stripYamlComments", "access": "protected", "host": "Config", "type": "method", "name": "_stripYamlComments"}, {"url": "Config.html#method_watch", "access": "", "host": "Config", "type": "method", "name": "watch"}, {"url": "Config.html#method_watchForConfigFileChanges", "access": "", "host": "Config", "type": "method", "name": "watchForConfigFileChanges"}];
-</script>
-</body>
-</html>
