@@ -2,7 +2,7 @@
     "project": {
         "name": "monitor-min",
         "description": "Monitor Min",
-        "version": "0.5.7",
+        "version": "0.5.8",
         "year": "2013",
         "url": "http://lorenwest.github.com/monitor-min",
         "logo": "",
@@ -1244,7 +1244,7 @@
             "module": "Monitor",
             "namespace": "",
             "file": "lib/Sync.js",
-            "line": 89,
+            "line": 91,
             "description": "Live data model synchronization.\n\nThis class can be attached to Backbone models to synchronize backend data using the\n<a href=\"http://documentcloud.github.com/backbone/#Model-fetch\">```fetch```</a>,\n<a href=\"http://documentcloud.github.com/backbone/#Model-save\">```save```</a>, and\n<a href=\"http://documentcloud.github.com/backbone/#Model-destroy\">```destroy```</a>\nBackbone API methods.\n\nIt also provides two-way change based synchronization, updating data on the server as\nchanges are made to the model, and updating the client model as changes are detected\non the server.\n\nCommunication is <a href=\"Probe.html\">Probe</a> based, leveraging the built-in\nconnection, routing, and socket-io functionality.  The <a href=\"FileSync.html\">FileSync</a>\nprobe is provided for file-based model persistence, and others can be written to\nimplement alternate persistence mechanisms.",
             "access": "private",
             "tagname": ""
@@ -2462,7 +2462,7 @@
                 {
                     "name": "args",
                     "description": "All original, starting with the short name",
-                    "type": "Any[]"
+                    "type": "Any..."
                 }
             ],
             "class": "Log",
@@ -2732,7 +2732,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 473,
+            "line": 480,
             "description": "Stop a started monitor server in this process",
             "static": 1,
             "itemtype": "method",
@@ -2749,7 +2749,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 485,
+            "line": 497,
             "description": "Produce a server string representation of the hostName:appName:appInstance\n\nDepending on the presence of the appName and appInstance, this will produce\none of the following:\n\n    hostName\n    hostName:appName\n    hostName:appName:appInstance",
             "itemtype": "method",
             "name": "toServerString",
@@ -2785,7 +2785,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 513,
+            "line": 525,
             "description": "Produce a depth-limited copy of the specified object\n\nFunctions are copied for visual inspection purposes - the fact that\nthey are a function, and any prototype members.  This is so a JSON.stringify\nof the result will show the functions (normally JSON.stringify doesn't output\nfunctions).\n\nThis method is mostly for debugging - for producing a human-readable stream\nrepresentation of the object.  It is an exact copy, except for elements of\ntype function.",
             "itemtype": "method",
             "name": "deepCopy",
@@ -2812,7 +2812,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 587,
+            "line": 599,
             "description": "Produce a recursion-safe JSON string.\n\nThis method recurses the specified object to a maximum specified depth\n(default 4).\n\nIt also indents sub-objects for debugging output.  The indent level can be\nspecified, or set to 0 for no indentation.\n\nThis is mostly useful in debugging when the standard JSON.stringify\nreturns an error.",
             "itemtype": "method",
             "name": "stringify",
@@ -2846,7 +2846,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 615,
+            "line": 627,
             "description": "Expose the stat logger class",
             "access": "protected",
             "tagname": "",
@@ -2864,7 +2864,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 633,
+            "line": 645,
             "description": "Expose the logger class",
             "access": "protected",
             "tagname": "",
@@ -2882,7 +2882,7 @@
         },
         {
             "file": "lib/Monitor.js",
-            "line": 651,
+            "line": 663,
             "description": "Constructor for a list of Monitor objects\n\n    var myList = new Monitor.List(initialElements);",
             "static": 1,
             "itemtype": "method",
@@ -3326,7 +3326,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 502,
+            "line": 503,
             "description": "Find an existing connection to use\n\nThis method looks into the existing known connections to find one\nthat matches the specified parameters.\n\nFirewalled connections are not returned.",
             "itemtype": "method",
             "name": "findConnection",
@@ -3358,7 +3358,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 532,
+            "line": 533,
             "description": "Find all connections matching the selection criteria\n\nThis method looks into the existing known connections to find all\nthat match the specified parameters.\n\nFirewalled connections are not returned.",
             "itemtype": "method",
             "name": "findConnections",
@@ -3385,7 +3385,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 560,
+            "line": 561,
             "description": "Add connections for the specified host\n\nThis performs a scan of monitor ports on the server, and adds connections\nfor newly discovered servers.\n\nIt can take a while to complete, and if called for the same host before\ncompletion, it will save the callback and call all callbacks when the\noriginal task is complete.",
             "itemtype": "method",
             "name": "addHostConnections",
@@ -3408,7 +3408,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 631,
+            "line": 632,
             "description": "Connect to an internal probe implementation\n\nThis connects with a probe running in this process.  It will instantiate\nthe probe if it isn't currently running.",
             "itemtype": "method",
             "name": "connectInternal",
@@ -3443,7 +3443,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 722,
+            "line": 723,
             "description": "Disconnect with an internal probe implementation.",
             "itemtype": "method",
             "name": "disconnectInternal",
@@ -3466,7 +3466,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 749,
+            "line": 750,
             "description": "Connect to an external probe implementation.\n\nThis connects with a probe running in another process.  It will\ncoordinate the remote instantiation of the probe if it's not running.",
             "itemtype": "method",
             "name": "connectExternal",
@@ -3506,7 +3506,7 @@
         },
         {
             "file": "lib/Router.js",
-            "line": 813,
+            "line": 814,
             "description": "Disconnect with an external probe implementation.",
             "itemtype": "method",
             "name": "disconnectExternal",
@@ -3795,7 +3795,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 18,
+            "line": 19,
             "description": "Probe based data synchronization with server-side storage.\n\nThis method returns a function conforming to the Backbone\n<a href=\"http://documentcloud.github.com/backbone/#Sync\">Sync</a>\nAPI, offering\n<a href=\"http://documentcloud.github.com/backbone/#Model-fetch\">```fetch```</a>,\n<a href=\"http://documentcloud.github.com/backbone/#Model-save\">```save```</a>, and\n<a href=\"http://documentcloud.github.com/backbone/#Model-destroy\">```destroy```</a>\nfunctionality to any Backbone data model.\n\nThe returned function can be assigned to the ```sync``` element when defining the\ndata model:\n\n    var BlogEntry = Backbone.Model.extend({\n      ...\n      sync: Monitor.Sync('BlogEntry'),\n      ...\n    });\n\nThe sync function can also be assigned to any Backbone model after construction:\n\n    var myBook = new Book({id:\"44329\"});\n    myBook.sync = Monitor.Sync('Book');\n    myBook.fetch();\n\nIn addition to providing the standard ```fetch```, ```save```, and ```destroy```\nfunctionality, Sync offers *live data synchronization*, updating the data model\nas changes are detected on the server.\n\n    // Turn on live data synchronization\n    myBook.fetch({liveSync:true});\n\nThis fetches the ```myBook``` instance with the contents of the Book class\nid ```44329```, persists local changes to ```myBook```, and keeps ```myBook```\nup to date with changes detected on the server.\n\nLive data synchronization consumes resources on both the client and server.\nTo release those resources, make sure to call the ```clear()``` method on\nthe data model. Otherwise, resources are released when the server connection\nis terminated.\n\n    // Clear the object, turning off live synchronization\n    myBook.clear();\n\nSee the <a href=\"http://documentcloud.github.com/backbone/#Sync\">Backbone documentation</a>\nfor more information about the Backbone.sync functionality.",
             "static": 1,
             "itemtype": "method",
@@ -3839,7 +3839,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 116,
+            "line": 119,
             "description": "Provide the sync API to a backbone data model\n\nSee the <a href=\"http://documentcloud.github.com/backbone/#Sync\">Backbone documentation</a>\nfor more information on this method.",
             "access": "private",
             "tagname": "",
@@ -3885,7 +3885,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 191,
+            "line": 197,
             "description": "Connect and send the control message to a Sync probe for this class.\n\nThis creates a monitor to a Sync probe with the specified className.\nThe monitor is used to send CRUD control messages for any ID within\nthe class.\n\nOnce connected, it sends the specified control message to the probe.\n\nThis monitor is used for non-liveSync interactions.",
             "access": "private",
             "tagname": "",
@@ -3925,7 +3925,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 228,
+            "line": 235,
             "description": "Connect and send the control message to a liveSync monitor for the model\n\nThis creates a monitor to a Sync probe for the model instance, and\nattaches event listeners onto the monitor and the data model.\n\nOnce connected, it sends the specified control message to the probe.\n\nChanges on the server are automatically propagated to the local\ndata model, and local changes to the data model are automatically\npropagated to the server.",
             "access": "private",
             "tagname": "",
@@ -3965,7 +3965,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 344,
+            "line": 364,
             "description": "Prepare the control options\n\nThis prepares the control options to include the ID element\non a fetch or delete, and the entire model on a create or\nupdate.",
             "access": "private",
             "tagname": "",
@@ -3992,7 +3992,7 @@
         },
         {
             "file": "lib/Sync.js",
-            "line": 372,
+            "line": 392,
             "description": "Prepare the init parameters for a monitor to a Sync probe\n\nThe monitor init params for the class monitor and the liveSync\nmodel monitor only differ in the modelId, so this method was\nbroken out to reduce code duplication.",
             "access": "private",
             "tagname": "",
